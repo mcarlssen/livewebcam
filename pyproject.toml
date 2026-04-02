@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "livewebcam"
+version = "0.3.0"
+description = "Menu bar / systray monitor for webcam activity (Linux + macOS)"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.9"
+dependencies = [
+  "wxpython>=4.2",
+]
+
+[project.scripts]
+livewebcam = "livewebcam.__main__:main"
+
+[tool.setuptools]
+packages = ["livewebcam"]

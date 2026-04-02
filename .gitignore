@@ -1,0 +1,17 @@
+# Local environment
+.venv/
+venv/
+env/
+
+# Vendored binary (copy from Homebrew or build; do not commit unless you intend to)
+/bin/blink1-tool
+
+# Python build / packaging
+*.egg-info/
+*.egg
+dist/
+build/
+__pycache__/
+*.py[cod]
+*.so
+.Python
