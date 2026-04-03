@@ -1,6 +1,17 @@
 # LiveWebCam
 
-wxPython menu bar / system tray tool that watches for webcam activity and runs your own scripts when the camera goes on or off. On **Linux** it uses the `uvcvideo` kernel module use count (same idea as the original). On **macOS** it uses an `lsof`-based heuristic (notably `USBVDC` / `AppleCamera` / related patterns, with CoreMediaIO bundle mmap noise filtered out).
+## Realtime, "tally light" detection for video devices on MacOS & Linux
+
+This python app detects when any video device activates or deactivates on your Mac or Linux machine, and runs any custom script you specify on the state change.
+
+You control the trigger scripts - turn on a wifi-controlled lamp, ping a Slack channel, send an email, pop a desktop alert, etc. Write your own actions and do anything you want.
+
+My personal setup turns on a Blink(1) USB LED:
+![Tally lamp on/off](tallylamp.png)
+
+## Under the hood
+
+This is a wxPython menu bar / system tray tool that watches for webcam activity and runs your own scripts when the camera goes on or off. On **Linux** it uses the `uvcvideo` kernel module use count (same idea as the original). On **macOS** it uses an `lsof`-based heuristic (notably `USBVDC` / `AppleCamera` / related patterns, with CoreMediaIO bundle mmap noise filtered out).
 
 ## Quick install (recommended)
 
@@ -108,11 +119,3 @@ Adjust scripts as needed. Example [`examples/webcam_activated.sh`](examples/webc
 
 - Detection is **heuristic**. If you need extra signal, set `LIVEWEBCAM_MACOS_USE_LOG=1` before starting to combine `lsof` with Unified Log events (see [`livewebcam/monitor_darwin.py`](livewebcam/monitor_darwin.py)).
 - To tune patterns, use [`scripts/camera_probe_macos.py`](scripts/camera_probe_macos.py) (requires the package on `PYTHONPATH`, e.g. after `pip install -e .`).
-
-## Linux notes
-
-Requires `uvcvideo` and `lsmod` (typical desktop kernel).
-
-## Packaging
-
-Install with **pip** or **pipx** from this repo (`pyproject.toml`). The old single-file launcher and RPM spec were removed in favor of the `livewebcam` package and console script.
